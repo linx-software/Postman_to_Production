@@ -24,7 +24,7 @@ You can use the database provided, however if you do not want to use the hosted 
 
 ## Tutorial Steps
 ### Steps:
-### Setup:
+#### Setup:
 1. Install Postman
 2. Install Linx
 3. If you will not be using our database, you need to set up a database. Scripts are provided. Go to the ‘[OPTIONAL] Setup Database’ section for instructions.
@@ -52,17 +52,17 @@ You can use the database provided, however if you do not want to use the hosted 
     - Add the Database Plugin
     - Add an ExecuteSQL function
     - Create a new setting for the database string using the database hosted on the following URI {db URI HERE}. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided
-iv. The setting will be called DB_Connection and should have the following connection string value {Connection string} (if you choose to do this via your own database, the connection string should reflect that)
-v. Set the connection to be the DB_Connection setting created above
-vi. Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function
-vii. Change the ExecuteSQL function to only return a list of rows
-viii. Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
+    - The setting will be called DB_Connection and should have the following connection string value {Connection string} (if you choose to do this via your own database, the connection string should reflect that)
+    - Set the connection to be the DB_Connection setting created above
+    - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function
+    - Change the ExecuteSQL function to only return a list of rows
+    - Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
 14. For the getProductByID event:
-i. Add an ExecuteSQL function
-ii. Set the connection to be the DB_Connection setting created above (in step 13)
-iii. Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/2.%20SELECT%20WHERE%20ID.sql) to that ExecuteSQL function
-iv. Change the ExecuteSQL function to only return the first value
-v. Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
+    - Add an ExecuteSQL function
+    - Set the connection to be the DB_Connection setting created above (in step 13)
+    - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/2.%20SELECT%20WHERE%20ID.sql) to that ExecuteSQL function
+    - Change the ExecuteSQL function to only return the first value
+    - Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
 15. Debug the RESTHost Service
 #### IN POSTMAN
 16. Run all tests again, they should now pass. 
