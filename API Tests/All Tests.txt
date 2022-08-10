@@ -1,0 +1,19 @@
+/* 
+This file contains all tests for the Product API. They are also available as indevidual files
+*/
+
+//Product test - this is a test for the products method
+const products = pm.response.json();
+pm.test("More than 20 valid products", function () {
+	pm.expect(products.length).to.greaterThan(20, "Expected more than 20 items");
+    products.forEach(x => {
+        pm.expect(x.id).to.greaterThan(0, "Id should be > 0");
+    })
+});
+
+//Product ID - this is a test for the productid method
+pm.test("Id is same as path param", function () {
+    const path = pm.request.url.path;
+    const pathParam = path[path.length-1];
+    pm.expect(pm.response.json().id.toString()).to.equal(pathParam);
+});
