@@ -44,8 +44,8 @@ You can use the database provided, however if you do not want to use the hosted 
 #### IN POSTMAN
 10. Run all the tests. If setup correctly, all tests will pass but there will be no more detail than that. This is because no tests have been set up
 11. Add the tests to each of the methods. This can be done by clicking on the method and then selecting the ‘test’ tab. The test functions have all been pre-created in this repo.
-10.1. For products add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/Products%20Test.js).
-10.2. For productid add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/ProductID%20Test.js).
+11.1. For products add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/Products%20Test.js).
+11.2. For productid add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/ProductID%20Test.js).
 12. Run the tests again, they should now fail because no logic has been specified for the back-end process
 #### IN LINX
 13. For the getAllProducts event:
