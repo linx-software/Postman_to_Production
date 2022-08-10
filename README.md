@@ -44,14 +44,14 @@ You can use the database provided, however if you do not want to use the hosted 
 #### IN POSTMAN
 10. Run all the tests. If setup correctly, all tests will pass but there will be no more detail than that. This is because no tests have been set up
 11. Add the tests to each of the methods. This can be done by clicking on the method and then selecting the ‘test’ tab. The test functions have all been pre-created in this repo.
-11.1. For products add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/Products%20Test.js).
-11.2. For productid add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/ProductID%20Test.js).
+  i. For products add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/Products%20Test.js).
+  ii. For productid add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/ProductID%20Test.js).
 12. Run the tests again, they should now fail because no logic has been specified for the back-end process
 #### IN LINX
 13. For the getAllProducts event:
-i. Add the Database Plugin
-ii. Add an ExecuteSQL function
-iii. Create a new setting for the database string using the database hosted on the following URI {db URI HERE}. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided
+  i. Add the Database Plugin
+  ii. Add an ExecuteSQL function
+  iii. Create a new setting for the database string using the database hosted on the following URI {db URI HERE}. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided
 iv. The setting will be called DB_Connection and should have the following connection string value {Connection string} (if you choose to do this via your own database, the connection string should reflect that)
 v. Set the connection to be the DB_Connection setting created above
 vi. Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function
