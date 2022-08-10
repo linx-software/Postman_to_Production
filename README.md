@@ -3,7 +3,7 @@
 ## Description
 This repo contains all resources necessary to complete the postman to production tutorial. The steps to complete the tutorial are also included below (under the Tutorial Steps section).
 
-The video tutorial can be followed on [YouTube here] (https://www.youtube.com/watch?v=UT02poSpfgg)
+The video tutorial can be followed on [YouTube here](https://www.youtube.com/watch?v=UT02poSpfgg)
 
 The Repo contains the following:
 - OpenAPI Definition in the form of a YAML file. (Postman_to_Production/API Definition/ProductAPI.yml)
@@ -15,7 +15,7 @@ A database has been created that contains the data required to test the API. You
 
 ## Installation
 Postman
-Postman can be [downloaded] (https://www.postman.com/downloads/) from their official website. 
+Postman can be [downloaded](https://www.postman.com/downloads/) from their official website. 
 Linx
 Linx can be downloaded from [linx.software](https://linx.software/). Sign up for the designer, you will receive your licence via email. 
 Creating the SQL Table [OPTIONAL]
