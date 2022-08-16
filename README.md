@@ -160,36 +160,36 @@ pm.test("Id is same as path param", function () {
     - Add the Database Plugin
     - Add an ExecuteSQL function
     - Create a new setting for the database string using the database hosted on the following URI {db URI HERE}. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided:
-      * For the **getAllProducts** events ExecuteSQL function, use the following SQL Script:
-```SQL
-SELECT 
-     id
-    ,name
-    ,price
-    ,quantityInStock
- FROM dbo.Products;
-```
-</br>
-      - For the **getProductById** events ExecuteSQL function, use the following SQL Script:
-      
-```SQL
-SELECT 
-    id
-    ,name
-    ,price
-    ,quantityInStock
-FROM dbo.Products
-WHERE Id = @{$.Parameters.Data.productId}```
-```
     - The setting will be called DB_Connection and should have the following connection string value {Connection string} (if you choose to do this via your own database, the connection string should reflect that)
     - Set the connection to be the DB_Connection setting created above
-    - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function
+    - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function:
+    
+    ```SQL
+    SELECT 
+         id
+        ,name
+        ,price
+        ,quantityInStock
+     FROM dbo.Products;
+    ```
+     
     - Change the ExecuteSQL function to only return a list of rows
     - Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
 14. For the getProductByID event:
     - Add an ExecuteSQL function
     - Set the connection to be the DB_Connection setting created above (in step 13)
-    - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/2.%20SELECT%20WHERE%20ID.sql) to that ExecuteSQL function
+    - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/2.%20SELECT%20WHERE%20ID.sql) to that ExecuteSQL function:
+    
+    ```SQL
+    SELECT 
+        id
+        ,name
+        ,price
+        ,quantityInStock
+    FROM dbo.Products
+    WHERE Id = @{$.Parameters.Data.productId}
+    ```
+    
     - Change the ExecuteSQL function to only return the first value
     - Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
 15. Debug the RESTHost Service
