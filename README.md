@@ -33,8 +33,116 @@ You can use the database provided, however if you do not want to use the hosted 
 #### IN POSTMAN:
 1. In Postman, Create a workspace for your project
 2. Go to APIs and create a new API named Product with OpenAPI 3.0 Schema type
-3. Define the API, this can be done by copying the [API schema in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Definition/ProductAPI.yml) 
+3. Define the API, this can be done by copying the below [API schema in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Definition/ProductAPI.yml):
+```YAML
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Product API
+servers:
+  - url: http://localhost:5000
+paths:
+  /products:
+    get:
+      summary: Get all products
+      operationId: getAllProducts
+      tags:
+        - products
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Products"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /products/{productId}:
+    get:
+      summary: Get product by id
+      operationId: getProductById
+      tags:
+        - products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The product requested
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - name
+        - price
+        - quantityInStock
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+        quantityInStock:
+          type: integer
+          format: int64
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+```
 4. The API will be tested during development. For this, we need to create a Test Suite by clicking on the Add Test Suite button in the test section. Call it ‘ProductAPI’
+  * For the **getAllProducts** method add the following JavaScript code as a test:
+```javascript
+const products = pm.response.json();
+pm.test("More than 20 valid products", function () {
+	pm.expect(products.length).to.greaterThan(20, "Expected more than 20 items");
+    products.forEach(x => {
+        pm.expect(x.id).to.greaterThan(0, "Id should be > 0");
+    })
+});
+```
+  * For the **getProductById** method add the following JavaScript code as a test:
+    
+```javascript
+pm.test("Id is same as path param", function () {
+    const path = pm.request.url.path;
+    const pathParam = path[path.length-1];
+    pm.expect(pm.response.json().id.toString()).to.equal(pathParam);
+});
+```
 #### IN LINX
 5. You are now ready to build the API backend in Linx. In Linx, add the REST plugin by clicking on the ‘ADD PLUGINS’ button
 6. Add a RESTHost service to your solution
@@ -51,7 +159,28 @@ You can use the database provided, however if you do not want to use the hosted 
 13. For the getAllProducts event:
     - Add the Database Plugin
     - Add an ExecuteSQL function
-    - Create a new setting for the database string using the database hosted on the following URI {db URI HERE}. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided
+    - Create a new setting for the database string using the database hosted on the following URI {db URI HERE}. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided:
+      * For the **getAllProducts** events ExecuteSQL function, use the following SQL Script:
+```SQL
+SELECT 
+     id
+    ,name
+    ,price
+    ,quantityInStock
+ FROM dbo.Products;
+```
+</br>
+      - For the **getProductById** events ExecuteSQL function, use the following SQL Script:
+      
+```SQL
+SELECT 
+    id
+    ,name
+    ,price
+    ,quantityInStock
+FROM dbo.Products
+WHERE Id = @{$.Parameters.Data.productId}```
+```
     - The setting will be called DB_Connection and should have the following connection string value {Connection string} (if you choose to do this via your own database, the connection string should reflect that)
     - Set the connection to be the DB_Connection setting created above
     - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function
