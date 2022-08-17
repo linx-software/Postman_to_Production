@@ -32,7 +32,7 @@ You can use the database provided, however if you do not want to use the hosted 
 ### Create the API
 #### IN POSTMAN:
 1. In Postman, Create a workspace for your project
-2. Go to APIs and create a new API named Product with OpenAPI 3.0 Schema type
+2. Go to APIs and create a new API named Product with OpenAPI 3.0 Schema type and YAML as the Schema Format
 3. Define the API, this can be done by copying the below [API schema in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Definition/ProductAPI.yml):
 ```YAML
 openapi: "3.0.0"
@@ -123,38 +123,125 @@ components:
         message:
           type: string
 ```
-4. The API will be tested during development. For this, we need to create a Test Suite by clicking on the Add Test Suite button in the test section. Call it ‘ProductAPI’
-  * For the **getAllProducts** method add the following JavaScript code as a test:
-```javascript
-const products = pm.response.json();
-pm.test("More than 20 valid products", function () {
-	pm.expect(products.length).to.greaterThan(20, "Expected more than 20 items");
-    products.forEach(x => {
-        pm.expect(x.id).to.greaterThan(0, "Id should be > 0");
-    })
-});
-```
-  * For the **getProductById** method add the following JavaScript code as a test:
-    
-```javascript
-pm.test("Id is same as path param", function () {
-    const path = pm.request.url.path;
-    const pathParam = path[path.length-1];
-    pm.expect(pm.response.json().id.toString()).to.equal(pathParam);
-});
-```
+4. The API will be tested during development. For this, we need to create a Test Suite by clicking on the Add Test Suite button in the test section. Call it ‘ProductAPI’   
 #### IN LINX
-5. You are now ready to build the API backend in Linx. In Linx, add the REST plugin by clicking on the ‘ADD PLUGINS’ button
+5. You are now ready to build the API backend in Linx. In Linx create a new solution and add the REST plugin by clicking on the ‘ADD PLUGINS’ button
 6. Add a RESTHost service to your solution
 7. Paste the API Definition (YAML) into the API Definition property 
+```YAML
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Product API
+servers:
+  - url: http://localhost:5000
+paths:
+  /products:
+    get:
+      summary: Get all products
+      operationId: getAllProducts
+      tags:
+        - products
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Products"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /products/{productId}:
+    get:
+      summary: Get product by id
+      operationId: getProductById
+      tags:
+        - products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The product requested
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - name
+        - price
+        - quantityInStock
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+        quantityInStock:
+          type: integer
+          format: int64
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+```
 8. Set the Base URI to be http://localhost:5000
-9. Debug the REST Host service
+9. Save your solution
+10. Debug the REST Host service. Do this by clicking on the Debug button, and then when it becomes available click on the Start button. This will start the service in a locally hosted instance for you to test.
 #### IN POSTMAN
-10. Run all the tests. If setup correctly, all tests will pass but there will be no more detail than that. This is because no tests have been set up
-11. Add the tests to each of the methods. This can be done by clicking on the method and then selecting the ‘test’ tab. The test functions have all been pre-created in this repo.
+11. Run all the tests. If setup correctly, all tests will pass but there will be no more detail than that. This is because no tests have been set up
+12. Add the tests to each of the methods. This can be done by clicking on the method and then selecting the ‘test’ tab. The test functions have all been pre-created in this repo.
     - For products add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/Products%20Test.js).
+    ```javascript
+	const products = pm.response.json();
+	pm.test("More than 20 valid products", function () {
+	pm.expect(products.length).to.greaterThan(20, "Expected more than 20 items");
+   	 products.forEach(x => {
+        pm.expect(x.id).to.greaterThan(0, "Id should be > 0");
+   	 })
+	});
+    ```  
     - For productid add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/ProductID%20Test.js).
-12. Run the tests again, they should now fail because no logic has been specified for the back-end process
+    ```javascript
+       pm.test("Id is same as path param", function () {
+       const path = pm.request.url.path;
+       const pathParam = path[path.length-1];
+      pm.expect(pm.response.json().id.toString()).to.equal(pathParam);
+      });
+    ```
+13. Run the tests again, they should now fail because no logic has been specified for the back-end process
 #### IN LINX
 13. For the getAllProducts event:
     - Add the Database Plugin
