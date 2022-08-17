@@ -73,7 +73,7 @@ paths:
           required: true
           description: The id of the product to retrieve
           schema:
-            type: string
+            type: integer
       responses:
         '200':
           description: The product requested
@@ -167,7 +167,7 @@ paths:
           required: true
           description: The id of the product to retrieve
           schema:
-            type: string
+            type: integer
       responses:
         '200':
           description: The product requested
@@ -283,6 +283,7 @@ components:
 15. Debug the RESTHost Service
 #### IN POSTMAN
 16. Run all tests again, they should now pass. 
+    - If you are receiving an Internal Server Error for getProductById, ensure that a suitable parameter is being passed for the Product ID, making this parameter 1 should work as there is a product with ID 1.
 
 After that is done, you can deploy the solution to a Linx server. Once deployed, the Linx server will host the API and the documentation (this can be set up on the RESTHost by selecting Documentation). You can continue to use Postman to test your hosted API, just be sure to point to the Linx Server BaseURI. 
 
