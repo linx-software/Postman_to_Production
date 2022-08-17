@@ -246,9 +246,11 @@ components:
 13. For the getAllProducts event:
     - Add the Database Plugin
     - Add an ExecuteSQL function
-    - Create a new setting for the database connection string using the database hosted buy us, here is the connection string: _Server=postmandb.northeurope.cloudapp.azure.com;Database=postmanTemplate;User Id=Guest_User;Password=DwVHXx!sVeA9x52Mhus6Vfg?;_. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided:
-    - The setting will be called DB_Connection and should have the following connection string value {Connection string} (if you choose to do this via your own database, the connection string should reflect that)
-    - Set the connection string in the ExecuteSQL function to be the DB_Connection setting created above. 
+    - Create a new setting for the database connection string. The setting will be called DB_Connection and should have the following connection string value provided below (if you choose to do this via your own database, the connection string should reflect that). Here is the connection string:
+    ```
+    Server=postmandb.northeurope.cloudapp.azure.com;Database=postmanTemplate;User Id=Guest_User;Password=DwVHXx!sVeA9x52Mhus6Vfg?;
+    ```
+    - Set the connection string in the ExecuteSQL function to be the DB_Connection setting created above. It will look something like this: _$.Settings.DB_Connection_
     - Leave the Connection Type as 'SQL Server'
     - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function:
 
