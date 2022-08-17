@@ -248,7 +248,7 @@ components:
     - Add an ExecuteSQL function
     - Create a new setting for the database connection string. The setting will be called DB_Connection and should have the following connection string value provided below (if you choose to do this via your own database, the connection string should reflect that). Here is the connection string:
     ```
-    Server=postmandb.northeurope.cloudapp.azure.com;Database=postmanTemplate;User Id=Guest_User;Password=DwVHXx!sVeA9x52Mhus6Vfg?;
+    Server=postmandb.twenty57.net;Database=postmanTemplate;User Id=Guest_User;Password=DwVHXx!sVeA9x52Mhus6Vfg?;
     ```
     - Set the connection string in the ExecuteSQL function to be the DB_Connection setting created above. It will look something like this: _$.Settings.DB_Connection_
     - Leave the Connection Type as 'SQL Server'
