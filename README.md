@@ -221,7 +221,7 @@ components:
 9. Save your solution
 10. Debug the REST Host service. Do this by clicking on the Debug button, and then when it becomes available click on the Start button. This will start the service in a locally hosted instance for you to test.
 #### IN POSTMAN
-11. Run all the tests. If setup correctly, all tests will pass but there will be no more detail than that. This is because no tests have been set up
+11. Run all the tests. If setup correctly, all tests will pass but there will be no more detail than that. This is because no tests have been set up. You will receive a "500 Internal Server Error" response from the API no logic has been specified for the back-end process
 12. Add the tests to each of the methods. This can be done by clicking on the method and then selecting the ‘test’ tab. The test functions have all been pre-created in this repo.
     - For products add the test specified [here](https://github.com/linx-software/Postman_to_Production/blob/main/API%20Tests/Products%20Test.js).
     ```javascript
@@ -241,16 +241,17 @@ components:
       pm.expect(pm.response.json().id.toString()).to.equal(pathParam);
       });
     ```
-13. Run the tests again, they should now fail because no logic has been specified for the back-end process
+13. Run the tests again, they should now fail because no logic has been specified for the back-end process. You will still receive a "500 Internal Server Error" response from the API 
 #### IN LINX
 13. For the getAllProducts event:
     - Add the Database Plugin
     - Add an ExecuteSQL function
     - Create a new setting for the database string using the database hosted on the following URI {db URI HERE}. You can also use a locally hosted database if you prefer that. All scripts and instructions have been provided:
     - The setting will be called DB_Connection and should have the following connection string value {Connection string} (if you choose to do this via your own database, the connection string should reflect that)
-    - Set the connection to be the DB_Connection setting created above
+    - Set the connection string in the ExecuteSQL function to be the DB_Connection setting created above. 
+    - Leave the Connection Type as 'SQL Server'
     - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/1.%20SELECT%20ALL.sql) to that ExecuteSQL function:
-    
+
     ```SQL
     SELECT 
          id
@@ -259,26 +260,26 @@ components:
         ,quantityInStock
      FROM dbo.Products;
     ```
-     
-    - Change the ExecuteSQL function to only return a list of rows
-    - Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
+    - Change the return options of the ExecuteSQL function to be 'List of rows'
+    - Add a SetValue function to the event that will set the response body to the ExecuteSQL result. To do this set the Target as '$.Result' and for the source, click on the edit button, then in the Response200 section select 'ExecuteSQL' (the result of the SQL query from the function)
 14. For the getProductByID event:
     - Add an ExecuteSQL function
     - Set the connection to be the DB_Connection setting created above (in step 13)
     - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/2.%20SELECT%20WHERE%20ID.sql) to that ExecuteSQL function:
     
     ```SQL
+    --This query will select a specific product record based on it's product ID
     SELECT 
         id
         ,name
         ,price
         ,quantityInStock
     FROM dbo.Products
-    WHERE Id = @{$.Parameters.Data.productId}
+    WHERE Id = @{$.Parameters.productId}
     ```
-    
-    - Change the ExecuteSQL function to only return the first value
-    - Add a SetValue function to the event, that will set the response body to the ExecuteSQL result. 
+    (_Note: If you get an error stating that the parameter can not be found, remove '@{$.Parameters.productId}' and replace it with the correct parameter passed in via the API call from the '$.Parameters' section in the query editor._)
+    - Change the return option of the ExecuteSQL function to only return the 'First row'.
+    - Add a SetValue function to the event that will set the response body to the ExecuteSQL result. To do this set the Target as '$.Result' and for the source, click on the edit button, then in the Response200 section select 'ExecuteSQL' (the result of the SQL query from the function)
 15. Debug the RESTHost Service
 #### IN POSTMAN
 16. Run all tests again, they should now pass. 
