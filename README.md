@@ -1,5 +1,8 @@
 # Postman to Production
 
+## About
+How to move your OpenAPi specification to a live, hosted API. This is a guide to help users build and deploy an API using Linx, a low-code platform and Postman. 
+
 ## Description
 This repo contains all resources necessary to complete the postman to production tutorial. The steps to complete the tutorial are also included below (under the Tutorial Steps section).
 
@@ -17,8 +20,9 @@ A database has been created that contains the data required to test the API. You
 #### Postman
 Postman can be [downloaded](https://www.postman.com/downloads/) from their official website. 
 #### Linx
-Linx can be downloaded from [linx.software](https://linx.software/). Sign up for the designer, you will receive your licence via email. 
-Creating the SQL Table [OPTIONAL]
+Linx can be downloaded from [linx.software](https://Linx.software/postman-to-production/). When you sign up for the designer, you will receive your licence via email. 
+
+#### Creating the SQL Table [OPTIONAL]
 You can use the database provided, however if you do not want to use the hosted database you can create the table with the data on your local database. The scripts to create the table in Microsoft SQL Server can be found in the Postman_to_Production/DB Setup/ folder. First create the table then insert the data. 
 
 
