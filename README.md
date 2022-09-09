@@ -3,7 +3,7 @@
 ## Description
 This repo contains all resources necessary to complete the postman to production tutorial. The steps to complete the tutorial are also included below (under the Tutorial Steps section).
 
-The video tutorial can be followed on [YouTube here](https://www.youtube.com/watch?v=UT02poSpfgg)
+The video tutorial can be followed on [YouTube here](https://www.youtube.com/watch?v=c37c1v7SdLg)
 
 The Repo contains the following:
 - OpenAPI Definition in the form of a YAML file. (Postman_to_Production/API Definition/ProductAPI.yml)
