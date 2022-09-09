@@ -1,8 +1,5 @@
 # Postman to Production
 
-## About
-How to move your OpenAPi specification to a live, hosted API. This is a guide to help users build and deploy an API using Linx, a low-code platform and Postman. 
-
 ## Description
 This repo contains all resources necessary to complete the postman to production tutorial. The steps to complete the tutorial are also included below (under the Tutorial Steps section).
 
