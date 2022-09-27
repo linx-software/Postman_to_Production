@@ -244,7 +244,7 @@ components:
     ```
 13. Run the tests again, they should now fail because no logic has been specified for the back-end process. You will still receive a "500 Internal Server Error" response from the API 
 #### IN LINX
-13. For the getAllProducts event:
+14. For the getAllProducts event:
     - Add the Database Plugin
     - Add an ExecuteSQL function
     - Create a new setting for the database connection string. The setting will be called DB_Connection and should have the following connection string value provided below (if you choose to do this via your own database, the connection string should reflect that). Here is the connection string:
@@ -264,8 +264,8 @@ components:
      FROM dbo.Products;
     ```
     - Change the return options of the ExecuteSQL function to be 'List of rows'
-    - Add a SetValue function to the event that will set the response body to the ExecuteSQL result. To do this set the Target as '$.Result' and for the source, click on the edit button, then in the Response200 section select 'ExecuteSQL' (the result of the SQL query from the function)
-14. For the getProductByID event:
+    - Add a Return function to the event that will set the response body to the ExecuteSQL result. To do this click on the edit button of the Value, then in the Response200 section select 'ExecuteSQL' (the result of the SQL query from the function)
+15. For the getProductByID event:
     - Add an ExecuteSQL function
     - Set the connection to be the DB_Connection setting created above (in step 13)
     - Add the [SQL in the repo](https://github.com/linx-software/Postman_to_Production/blob/main/SQL%20Queries/2.%20SELECT%20WHERE%20ID.sql) to that ExecuteSQL function:
@@ -282,10 +282,10 @@ components:
     ```
     (_Note: If you get an error stating that the parameter can not be found, remove '@{$.Parameters.productId}' and replace it with the correct parameter passed in via the API call from the '$.Parameters' section in the query editor._)
     - Change the return option of the ExecuteSQL function to only return the 'First row'.
-    - Add a SetValue function to the event that will set the response body to the ExecuteSQL result. To do this set the Target as '$.Result' and for the source, click on the edit button, then in the Response200 section select 'ExecuteSQL' (the result of the SQL query from the function)
-15. Debug the RESTHost Service
+    - Add a Return function to the event that will set the response body to the ExecuteSQL result. To do this click on the edit button of the Value, then in the Response200 section select 'ExecuteSQL' (the result of the SQL query from the function)
+16. Debug the RESTHost Service
 #### IN POSTMAN
-16. Run all tests again, they should now pass. 
+17. Run all tests again, they should now pass. 
     - If you are receiving an Internal Server Error for getProductById, ensure that a suitable parameter is being passed for the Product ID, making this parameter 1 should work as there is a product with ID 1.
 
 After that is done, you can deploy the solution to a Linx server. Once deployed, the Linx server will host the API and the documentation (this can be set up on the RESTHost by selecting Documentation). You can continue to use Postman to test your hosted API, just be sure to point to the Linx Server BaseURI. 
